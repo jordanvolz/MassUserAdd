@@ -43,6 +43,6 @@ def process_user(username,password,display_name,groups):
     else:
         printdku("Error creating user %s" %username)
 
-def printdku(string):
+def printdku(string,feedback):
     print(string)
     self.feedback=append(string)
