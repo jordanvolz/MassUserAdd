@@ -21,7 +21,7 @@ class MyRunnable(Runnable):
         If the runnable will return some progress info, have this function return a tuple of 
         (target, unit) where unit is one of: SIZE, FILES, RECORDS, NONE
         """
-        i = admin.get_lines()
+        i = admin.get_lines(self.config.get("user_file_location"))
         return (i,None)
 
     def run(self, progress_callback):
