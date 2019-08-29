@@ -1,3 +1,6 @@
+def get_line(filepath):
+    return len(open(filepath).readlines())
+
 def process_file(filepath,skip_header,client,feedback):
     with open(filepath) as f:
         usersfile = f.readlines()
