@@ -46,7 +46,7 @@ class MyRunnable(Runnable):
             usersfile = f.readlines()
             i = 0 
             for line in usersfile:
-                i++
+                i+=1
                 if (skip_header and i==1): continue
                 printdku("Processing line %s" %line)
                 userdetails = line.split(',')
