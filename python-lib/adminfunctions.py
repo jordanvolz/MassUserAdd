@@ -47,7 +47,6 @@ def process_user(username,password,display_name,groups,client,feedback):
     except StopIteration as error: #user doesn't already exist, create it
         new_user = client.create_user(username, password, display_name,'LOCAL', groups)
         r_text = "Created user %s" %username
-       
     else:
         r_text="Error creating user %s. User likely already exists." %username
 
