@@ -4,7 +4,7 @@ def process_file(filepath,skip_header,client,feedback):
         i = 0 
         for line in usersfile:
             i+=1
-            printdku(i)
+            printdku(i,feedback)
             if (skip_header and i==1): 
                 continue
             printdku("Processing line %s" %line,feedback)
