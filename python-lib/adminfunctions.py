@@ -19,7 +19,7 @@ def process_file(filepath,skip_header):
                 printdku("Error processing line: %s" %line)
 
 
-def process_groups(groups):
+def process_groups(groups,client):
     group_list=groups.split("|")
     allgroups = self.client.list_groups()
     for group in group_list:
