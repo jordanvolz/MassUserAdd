@@ -38,7 +38,7 @@ class MyRunnable(Runnable):
         skip_header = self.config.get("skip_header")
         admin.printdku("Processing file %s" %filepath,feedback)
         
-        feedback = admin.process_file(filepath,skip_header,client,feedback)
+        feedback = admin.process_file(filepath,skip_header,client,feedback,progress_callback)
         
         admin.printdku("Finished Macro MassUserAdd_CreateUserAndGroups",feedback)
         admin.printdku("feedback %s" %feedback, feedback)
