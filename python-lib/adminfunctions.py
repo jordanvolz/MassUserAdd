@@ -8,12 +8,10 @@ def process_file(filepath,skip_header,client,feedback,progress_callback):
         for line in usersfile:
             i+=1
             progress_callback(i)
-            printdku(i,feedback)
             if (skip_header and i==1): 
                 continue
             printdku("Processing line %s" %line,feedback)
             userdetails = line.split(',')
-            printdku("userdetails %s" %userdetails,feedback)
             try: 
                 username = userdetails[0]
                 password = userdetails[1]
