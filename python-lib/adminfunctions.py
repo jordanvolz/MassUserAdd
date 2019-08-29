@@ -31,14 +31,14 @@ def process_groups(groups,client):
         else: 
             printdku("Error creating group %s" %group)
 
-def process_user(username,password,display_name,groups):
+def process_user(username,password,display_name,groups,client):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
     allusers = self.client.list_users()
     feedback = []
     try:
         result = next(item for item in allusers if item['login'] == username)
     except StopIteration as error: #user doesn't already exist, create it
-        new_user = self.client.create_user(username, password, display_name,'LOCAL', groups)
+        new_user = client.create_user(username, password, display_name,'LOCAL', groups)
         printdku("Created user %s" %username)
     else:
         printdku("Error creating user %s" %username)
