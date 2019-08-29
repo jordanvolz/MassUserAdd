@@ -15,8 +15,6 @@ class MyRunnable(Runnable):
         self.project_key = project_key
         self.config = config
         self.plugin_config = plugin_config
-        self.client=dataiku.api_client()
-        self.feedback=[]
         
     def get_progress_target(self):
         """
@@ -30,16 +28,18 @@ class MyRunnable(Runnable):
         Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
+        client=dataiku.api_client()
+        feedback=[]
         
-        admin.printdku("Starting Macro MassUserAdd_CreateUserAndGroups",self.feedback)
+        admin.printdku("Starting Macro MassUserAdd_CreateUserAndGroups",feedback)
 
         filepath = self.config.get("user_file_location")
         skip_header = self.config.get("skip_header")
         admin.printdku("Processing file %s" %filepath)
         
-        result = admin.process_file(filepath,skip_header,self.client)
+        result = admin.process_file(filepath,skip_header,client)
         
-        admin.printdku("Finished Macro MassUserAdd_CreateUserAndGroups",self.feedback)
+        admin.printdku("Finished Macro MassUserAdd_CreateUserAndGroups",feedback)
         return "<br>".join(self.feedback)
     
 
