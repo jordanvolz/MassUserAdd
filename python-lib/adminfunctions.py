@@ -37,6 +37,7 @@ def process_groups(group_list,client,feedback):
         else: 
             printdku("Error creating group %s" %group,feedback)
             return feedback
+            continue
 
 def process_user(username,password,display_name,groups,client,feedback):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
