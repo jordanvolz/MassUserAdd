@@ -13,7 +13,7 @@ def process_file(filepath,skip_header,client,feedback):
                 printdku("username %s" %username)
                 password = userdetails[1]
                 display_name = userdetails[2]
-                groups = userdetails[3].split("|")
+                groups = userdetails[3].strip().split("|")
                 printdku(username,password,display_name,groups)
                 process_groups(groups,client,feedback)
                 printdku("group processed")
