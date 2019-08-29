@@ -1,82 +1,36 @@
-/* This file is the descriptor for the python runnable someidentifier */
 {
-    /* Meta data for display purposes */
     "meta": {
-        "label": "documacro",
-        "description": "adds users from csv file",
+        "label": "Create Users and Groups",
+        "description": "Creates Users and Groups from a CSV File",
         "icon": "icon-puzzle-piece"
     },
-
-    /* whether the runnable's code is untrusted */
     "impersonate": false,
 
-    /* list of required permissions on the project to see/run the runnable */
-    "permissions": [],
-
-    /* what the code's run() returns:
-       - NONE : no result
-       - HTML : a string that is a html (utf8 encoded)
-       - FOLDER_FILE : a (folderId, path) pair to a file in a folder of this project (json-encoded)
-       - FILE : raw data (as a python string) that will be stored in a temp file by DSS
-       - URL : a url
-     */
+    "permissions": ["ADMIN"],
     "resultType": "HTML",
-
-    /* label to use when the runnable's result is not inlined in the UI (ex: for urls) */
-    "resultLabel": "my production",
-
-    /* for FILE resultType, the extension to use for the temp file */
+    "resultLabel": "result",
     "extension": "txt",
-
-    /* for FILE resultType, the type of data stored in the temp file */
     "mimeType": "text/plain",
-
-    /* Macro roles define where this macro will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
-
-       Each role consists of:
-        - type: where the macro will be shown
-            * when selecting DSS object(s): DATASET, DATASETS, API_SERVICE, API_SERVICE_VERSION, BUNDLE, VISUAL_ANALYSIS, SAVED_MODEL, MANAGED_FOLDER
-            * in the global project list: PROJECT_MACROS
-        - targetParamsKey(s): name of the parameter(s) that will be filled with the selected object
-    */
     "macroRoles": [
      {
             "type": "PROJECT_MACROS",
-            "targetParamsKey": "input_dataset"
         }
     ],
-
-    /* The field "params" holds a list of all the params
-       for wich the user will be prompted for values:
-
-       The available parameter types are:
-       STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, TEXTAREA,
-       DATASET, DATASETS, API_SERVICE, API_SERVICE_VERSION, BUNDLE, VISUAL_ANALYSIS, SAVED_MODEL, MANAGED_FOLDER
-    */
-    "resultType": "HTML",
     "params": [
         {
             "name": "user_file_location",
-            "label": "absolute file path:",
+            "label": "Absolute file path of a user csv file",
             "type": "STRING",
-            "description": "Location of List of Users to Create",
+            "description": "Location of List of Users and Groups to Create. Format is 'user,password,displayname,groups(| separated)",
             "mandatory": true
         },
 
         /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
         {
-            "name": "parameter8",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                }
-            ]
+            "name": "skip_header",
+            "type": "BOOLEAN",
+            "description": "Skip first line of file",
+            "mandatory": true
         }
     ]
 }
