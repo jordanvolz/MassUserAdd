@@ -35,7 +35,7 @@ class MyRunnable(Runnable):
 
         filepath = self.config.get("user_file_location")
         skip_header = self.config.get("skip_header")
-        admin.printdku("Processing file %s" %filepath)
+        admin.printdku("Processing file %s" %filepath,feedback)
         
         result = admin.process_file(filepath,skip_header,client,feedback)
         
