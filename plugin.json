@@ -5,7 +5,7 @@
         "label" : "Bulk Add Users to DSS",
         "description" : "Macro that Creates Users in Bulk",
         "author" : "akaos",
-        "icon" : "icon-puzzle-piece",
+        "icon" : "icon-gear",
         "licenseInfo" : "Apache Software License",
         "url" : "https://www.dataiku.com",
         "tags" : ["administrative", "dataiku", "training"]
