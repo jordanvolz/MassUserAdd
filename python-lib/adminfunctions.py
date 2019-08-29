@@ -21,7 +21,7 @@ def process_file(filepath,skip_header):
 
 def process_groups(groups,client):
     group_list=groups.split("|")
-    allgroups = self.client.list_groups()
+    allgroups = client.list_groups()
     for group in group_list:
         try: 
             result = next (group for group in allgroups if group['name'] == group)
