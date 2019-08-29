@@ -7,7 +7,7 @@ def process_file(filepath,skip_header,client,feedback):
             if (skip_header and i==1): continue
             printdku("Processing line %s" %line,feedback)
             userdetails = line.split(',')
-            print "userdetails %s" %userdetails
+            printdku("userdetails %s" %userdetails,feedback)
             try: 
                 username = userdetails[0]
                 password = userdetails[1]
