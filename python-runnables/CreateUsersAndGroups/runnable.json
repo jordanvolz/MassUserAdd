@@ -1,0 +1,37 @@
+{
+    "meta": {
+        "label": "Create Users and Groups",
+        "description": "Creates Users and Groups from a CSV File",
+        "icon": "icon-plus-sign"
+    },
+    "impersonate": false,
+
+    "permissions": ["ADMIN"],
+    "resultType": "HTML",
+    "resultLabel": "result",
+    "extension": "txt",
+    "mimeType": "text/plain",
+    "macroRoles": [
+     {
+            "type": "PROJECT_MACROS",
+             "targetParamKeys":[]
+        }
+    ],
+    "params": [
+        {
+            "name": "user_file_location",
+            "label": "Absolute file path of a user csv file",
+            "type": "STRING",
+            "description": "Location of List of Users and Groups to Create. Format is 'user,password,displayname,groups(| separated)",
+            "mandatory": true
+        },
+
+        {
+            "name": "skip_header",
+            "type": "BOOLEAN",
+            "description": "Skip first line of file",
+            "mandatory": true,
+            "defaultValue": false
+        }
+    ]
+}
