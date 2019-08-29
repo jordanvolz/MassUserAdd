@@ -65,7 +65,7 @@ class MyRunnable(Runnable):
     def process_groups(groups):
         group_list=groups.split("|")
         allgroups = self.client.list_groups()
-        for (group in group_list):
+        for group in group_list:
             try: 
                 result = next (group for group in allgroups if group['name'] == group)
             except StopIteration as error: 
