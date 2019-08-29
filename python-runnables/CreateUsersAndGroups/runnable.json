@@ -2,7 +2,7 @@
     "meta": {
         "label": "Create Users and Groups",
         "description": "Creates Users and Groups from a CSV File",
-        "icon": "icon-gear"
+        "icon": "icon-plus"
     },
     "impersonate": false,
 
