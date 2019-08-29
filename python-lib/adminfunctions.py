@@ -45,4 +45,4 @@ def process_user(username,password,display_name,groups,client):
 
 def printdku(string,feedback):
     print(string)
-    feedback=append(string)
+    feedback.append(string)
