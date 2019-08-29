@@ -1,4 +1,4 @@
-def get_line(filepath):
+def get_lines(filepath):
     return len(open(filepath).readlines())+1
 
 def process_file(filepath,skip_header,client,feedback,progress_callback):
