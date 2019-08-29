@@ -1,4 +1,4 @@
-def process_file(filepath,skip_header):
+def process_file(filepath,skip_header,client,feedback):
     with open(filepath) as f:
         usersfile = f.readlines()
         i = 0 
