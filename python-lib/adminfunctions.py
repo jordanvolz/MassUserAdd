@@ -17,7 +17,7 @@ def process_file(filepath,skip_header,client,feedback,progress_callback):
                 password = userdetails[1]
                 display_name = userdetails[2]
                 groups = userdetails[3].strip().split("|")
-                feedback = process_groups(groups,client,feedback)
+                #feedback = process_groups(groups,client,feedback)
                 feedback = process_user(username,password,display_name,groups,client,feedback)
                 printdku("Successfully processed user %s" %username,feedback)
             except: 
