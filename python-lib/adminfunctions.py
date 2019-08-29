@@ -12,7 +12,7 @@ def process_file(filepath,skip_header,client,feedback):
                 username = userdetails[0]
                 password = userdetails[1]
                 display_name = userdetails[2]
-                groups = userdetails[3]
+                groups = userdetails[3].split("|")
                 printdku(username,password,display_name,groups)
                 process_groups(groups,client,feedback)
                 printdku("group processed")
@@ -22,8 +22,7 @@ def process_file(filepath,skip_header,client,feedback):
                 printdku("Error processing line: %s" %line,feedback)
 
 
-def process_groups(groups,client,feedback):
-    group_list=groups.split("|")
+def process_groups(group_list,client,feedback):
     allgroups = client.list_groups()
     for group in group_list:
         try: 
