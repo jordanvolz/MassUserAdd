@@ -9,6 +9,7 @@ def process_file(filepath,skip_header,client,feedback):
             userdetails = line.split(',')
             printdku("userdetails %s" %userdetails,feedback)
             try: 
+                printdku("in try block")
                 username = userdetails[0]
                 printdku("username %s" %username)
                 password = userdetails[1]
