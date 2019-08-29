@@ -29,7 +29,8 @@ def process_groups(group_list,client,feedback):
     allgroups = client.list_groups()
     for group in group_list:
         try: 
-            result = next (group for group in allgroups if group['name'] == group)
+            printdku()"group %s, allgroups %s" %group,,feedback)
+            result = next (item for item in allgroups if group['name'] == group)
             printdku("result %s" %result,feedback)
         except StopIteration as error: 
             client.create_group(group,group,"LOCAL")
