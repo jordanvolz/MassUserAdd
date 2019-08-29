@@ -1,12 +1,13 @@
 def get_line(filepath):
     return len(open(filepath).readlines())+1
 
-def process_file(filepath,skip_header,client,feedback,progress_callback()):
+def process_file(filepath,skip_header,client,feedback,progress_callback:
     with open(filepath) as f:
         usersfile = f.readlines()
         i = 0 
         for line in usersfile:
             i+=1
+            progress_callback(i)
             printdku(i,feedback)
             if (skip_header and i==1): 
                 continue
