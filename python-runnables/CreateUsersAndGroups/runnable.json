@@ -26,7 +26,6 @@
             "mandatory": true
         },
 
-        /* A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field*/
         {
             "name": "skip_header",
             "type": "BOOLEAN",
