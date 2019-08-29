@@ -26,14 +26,14 @@ def process_groups(groups,client):
         try: 
             result = next (group for group in allgroups if group['name'] == group)
         except StopIteration as error: 
-            self.client.create_group(group,group,"LOCAL")
+            client.create_group(group,group,"LOCAL")
             printdku("Created group %s" %group)
         else: 
             printdku("Error creating group %s" %group)
 
 def process_user(username,password,display_name,groups,client):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
-    allusers = self.client.list_users()
+    allusers = client.list_users()
     feedback = []
     try:
         result = next(item for item in allusers if item['login'] == username)
