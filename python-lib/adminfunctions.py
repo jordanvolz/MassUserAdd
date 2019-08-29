@@ -17,7 +17,7 @@ def process_file(filepath,skip_header,client,feedback,progress_callback):
                 password = userdetails[1]
                 display_name = userdetails[2]
                 groups = userdetails[3].strip().split("|")
-                #feedback = process_groups(groups,client,feedback)
+                feedback = process_groups(groups,client,feedback)
                 feedback = process_user(username,password,display_name,groups,client,feedback)
                 printdku("Successfully processed user %s" %username,feedback)
             except: 
@@ -29,17 +29,15 @@ def process_groups(group_list,client,feedback):
     allgroups = client.list_groups()
     for group in group_list:
         try: 
-            printdku("group %s, allgroups %s" %(group,allgroups),feedback)
             result = next (item for item in allgroups if group['name'] == group)
-            printdku("result %s" %result,feedback)
         except StopIteration as error: 
             client.create_group(group,group,"LOCAL")
-            printdku("Created group %s" %group,feedback)
-            return feedback
+            r_text="Created group %s" %group
         else: 
-            printdku("Error creating group %s" %group,feedback)
-            return feedback
-            continue
+            r_text="Error creating group %s. Group likely already exists" %group
+           
+        printdku(r_text,feedback)
+        return feedback
 
 def process_user(username,password,display_name,groups,client,feedback):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
@@ -51,7 +49,7 @@ def process_user(username,password,display_name,groups,client,feedback):
         r_text = "Created user %s" %username
        
     else:
-        r_text="Error creating user %s" %username
+        r_text="Error creating user %s. User likely already exists." %username
 
     printdku(r_text,feedback)
     return feedback
