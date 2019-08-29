@@ -1,13 +1,6 @@
 import dataiku
-import dataikuapi
-import csv
-import pprint
-from pprint import pprint
-#from pprint_data import data
-# This file is the actual code for the Python runnable someidentifier
 from dataiku.runnables import Runnable
-#client = dataikuapi.DSSClient("localhost:11200", "6mvE00OPKblLSj88yzCaQefNKj1gs87Y")
-#client = dataiku.api_client()
+
 
 class MyRunnable(Runnable):
     """The base interface for a Python runnable"""
@@ -21,6 +14,7 @@ class MyRunnable(Runnable):
         self.project_key = project_key
         self.config = config
         self.plugin_config = plugin_config
+        self.client=dataiku.api_client()
         
     def get_progress_target(self):
         """
@@ -34,21 +28,38 @@ class MyRunnable(Runnable):
         Do stuff here. Can return a string or raise an exception.
         The progress_callback is a function expecting 1 value: current progress
         """
+        
+        print("Starting Macro MassUserAdd_CreateUserAndGroups")
+
         filepath = self.config.get("user_file_location")
+        skip_header = self.config.get("skip_header")
+        print("Processing file %s" %filepath)
+        
+        result = process_file(filepath,skip_header,client)
+        
+        print ("Finished Macro MassUserAdd_CreateUserAndGroups")
+        return result
+    
+    def process_file(filepath,skip_header,client):
         with open(filepath) as f:
             usersfile = f.readlines()
             feedback = []
             for line in usersfile:
                 userdetails = line.split(',')
-                username = userdetails[0]
-                allusers = self.client.list_users()
-                try:
-                    result = next(item for item in allusers if item['login'] == username)
-                except StopIteration as error: 
+                try: 
                     username = userdetails[0]
                     password = userdetails[1]
                     display_name = userdetails[2]
                     usergroup = userdetails[3]
+                    process_user(username,password,display_name,usergroup)
+                except: 
+                    print ("Error processing line: %s" %line)
+                    
+                try:
+                    result = next(item for item in allusers if item['login'] == username)
+                except StopIteration as error: 
+                    username = userdetails[0]
+
                     if len(userdetails)>4:
                         usergroup.append(userdetails[4])
                     new_user = self.client.create_user(username, password, display_name, source_type='LOCAL', groups=[usergroup])
@@ -60,7 +71,6 @@ class MyRunnable(Runnable):
                     continue
 
         final = ", ".join(feedback)
-        return final
 
 
        
