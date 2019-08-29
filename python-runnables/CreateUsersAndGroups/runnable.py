@@ -35,44 +35,49 @@ class MyRunnable(Runnable):
         skip_header = self.config.get("skip_header")
         print("Processing file %s" %filepath)
         
-        result = process_file(filepath,skip_header,client)
+        result = process_file(filepath,skip_header)
         
         print ("Finished Macro MassUserAdd_CreateUserAndGroups")
         return result
     
-    def process_file(filepath,skip_header,client):
+    def process_file(filepath,skip_header):
         with open(filepath) as f:
             usersfile = f.readlines()
-            feedback = []
             for line in usersfile:
                 userdetails = line.split(',')
                 try: 
                     username = userdetails[0]
                     password = userdetails[1]
                     display_name = userdetails[2]
-                    usergroup = userdetails[3]
-                    process_user(username,password,display_name,usergroup)
+                    groups = userdetails[3]
+                    process_groups(groups)
+                    process_user(username,password,display_name,groups)
+                    print("Successfully processed user %s" %username)
                 except: 
-                    print ("Error processing line: %s" %line)
+                    print("Error processing line: %s" %line)
                     
-                try:
-                    result = next(item for item in allusers if item['login'] == username)
-                except StopIteration as error: 
-                    username = userdetails[0]
-
-                    if len(userdetails)>4:
-                        usergroup.append(userdetails[4])
-                    new_user = self.client.create_user(username, password, display_name, source_type='LOCAL', groups=[usergroup])
-                    nuser = (username + " has been created")
-                    feedback.append(nuser)
-                else:
-                    alreadyused = (username + " is already in use - please use another name")
-                    feedback.append(alreadyused)
-                    continue
-
         final = ", ".join(feedback)
 
-
-       
+    def process_groups():
+        group_list=groups.split("|")
+        for (group in group_list):
+            process_group(group)
+            
+    def process_user(username,password,display_name,groups):
+        #grab user list here instead of before to ensure that we don't process duplicates in the file
+        allusers = self.client.list_users()
+        feedback = []
+        try:
+            result = next(item for item in allusers if item['login'] == username)
+        except StopIteration as error: #user doesn't already exist, create it
+            if len(userdetails)>4:
+                usergroup.append(userdetails[4])
+            new_user = self.client.create_user(username, password, display_name, source_type='LOCAL', groups=[usergroup])
+            nuser = (username + " has been created")
+            feedback.append(nuser)
+        else:
+            alreadyused = (username + " is already in use - please use another name")
+            feedback.append(alreadyused)
+            continue 
     
         
