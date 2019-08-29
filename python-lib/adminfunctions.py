@@ -18,12 +18,13 @@ def process_file(filepath,skip_header,client,feedback):
                 display_name = userdetails[2]
                 groups = userdetails[3].strip().split("|")
                 printdku(username,password,display_name,groups)
-                process_groups(groups,client,feedback)
+                feedback = process_groups(groups,client,feedback)
                 printdku("group processed")
-                process_user(username,password,display_name,groups,client,feedback)
+                feedback = process_user(username,password,display_name,groups,client,feedback)
                 printdku("Successfully processed user %s" %username,feedback)
             except: 
                 printdku("Error processing line: %s" %line,feedback)
+    return feedback
 
 
 def process_groups(group_list,client,feedback):
@@ -34,8 +35,10 @@ def process_groups(group_list,client,feedback):
         except StopIteration as error: 
             client.create_group(group,group,"LOCAL")
             printdku("Created group %s" %group,feedback)
+            return feedback
         else: 
             printdku("Error creating group %s" %group,feedback)
+            return feedback
 
 def process_user(username,password,display_name,groups,client,feedback):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
@@ -45,8 +48,10 @@ def process_user(username,password,display_name,groups,client,feedback):
     except StopIteration as error: #user doesn't already exist, create it
         new_user = client.create_user(username, password, display_name,'LOCAL', groups)
         printdku("Created user %s" %username,feedback)
+        return feedback
     else:
         printdku("Error creating user %s" %username.feedback)
+        return feedback
 
 def printdku(string,feedback):
     print(string)
