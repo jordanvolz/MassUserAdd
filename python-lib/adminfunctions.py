@@ -10,6 +10,7 @@ def process_file(filepath,skip_header,client,feedback):
             printdku("userdetails %s" %userdetails,feedback)
             try: 
                 username = userdetails[0]
+                printdku("username %s" %username)
                 password = userdetails[1]
                 display_name = userdetails[2]
                 groups = userdetails[3].split("|")
