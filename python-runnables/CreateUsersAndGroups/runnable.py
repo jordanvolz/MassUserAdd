@@ -40,7 +40,7 @@ class MyRunnable(Runnable):
         feedback = admin.process_file(filepath,skip_header,client,feedback)
         
         admin.printdku("Finished Macro MassUserAdd_CreateUserAndGroups",feedback)
-        admin,printdku("feedback %s" %feedback, feedback)
+        admin.printdku("feedback %s" %feedback, feedback)
         return "<br>".join(feedback)
     
 
