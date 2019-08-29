@@ -30,7 +30,7 @@ class MyRunnable(Runnable):
         The progress_callback is a function expecting 1 value: current progress
         """
         
-        print("Starting Macro MassUserAdd_CreateUserAndGroups")
+        printdku("Starting Macro MassUserAdd_CreateUserAndGroups")
 
         filepath = self.config.get("user_file_location")
         skip_header = self.config.get("skip_header")
@@ -38,14 +38,14 @@ class MyRunnable(Runnable):
         
         result = process_file(filepath,skip_header)
         
-        print ("Finished Macro MassUserAdd_CreateUserAndGroups")
-        return result
+        printdku("Finished Macro MassUserAdd_CreateUserAndGroups")
+        return "<br>".join(self.feedback)
     
     def process_file(filepath,skip_header):
         with open(filepath) as f:
             usersfile = f.readlines()
             for line in usersfile:
-                print("Processing line %s" %line)
+                printdku("Processing line %s" %line)
                 userdetails = line.split(',')
                 try: 
                     username = userdetails[0]
@@ -54,11 +54,10 @@ class MyRunnable(Runnable):
                     groups = userdetails[3]
                     process_groups(groups)
                     process_user(username,password,display_name,groups)
-                    print("Successfully processed user %s" %username)
+                    printdku("Successfully processed user %s" %username)
                 except: 
-                    print("Error processing line: %s" %line)
+                    printdku("Error processing line: %s" %line)
                     
-        final = ", ".join(feedback)
 
     def process_groups(groups):
         group_list=groups.split("|")
@@ -68,9 +67,9 @@ class MyRunnable(Runnable):
                 result = next (group for group in allgroups if group['name'] == group)
             except StopIteration as error: 
                 self.client.create_group(group,group,"LOCAL")
-                print("Created group %s" %group)
+                printdku("Created group %s" %group)
             else: 
-                print("Error creating group %s" %group)
+                printdku("Error creating group %s" %group)
             
     def process_user(username,password,display_name,groups):
         #grab user list here instead of before to ensure that we don't process duplicates in the file
@@ -80,8 +79,12 @@ class MyRunnable(Runnable):
             result = next(item for item in allusers if item['login'] == username)
         except StopIteration as error: #user doesn't already exist, create it
             new_user = self.client.create_user(username, password, display_name,'LOCAL', groups)
-            print ("Created user %s" %username)
+            printdku("Created user %s" %username)
         else:
-            print ("Error creating user %s" %username)
+            printdku("Error creating user %s" %username)
+            
+    def printdku(string):
+        print(string)
+        self.feedback=append(string)
     
         
