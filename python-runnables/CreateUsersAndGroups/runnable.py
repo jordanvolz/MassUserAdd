@@ -15,6 +15,7 @@ class MyRunnable(Runnable):
         self.config = config
         self.plugin_config = plugin_config
         self.client=dataiku.api_client()
+        self.feedback=[]
         
     def get_progress_target(self):
         """
@@ -44,6 +45,7 @@ class MyRunnable(Runnable):
         with open(filepath) as f:
             usersfile = f.readlines()
             for line in usersfile:
+                print("Processing line %s" %line)
                 userdetails = line.split(',')
                 try: 
                     username = userdetails[0]
@@ -58,10 +60,17 @@ class MyRunnable(Runnable):
                     
         final = ", ".join(feedback)
 
-    def process_groups():
+    def process_groups(groups):
         group_list=groups.split("|")
+        allgroups = self.client.list_groups()
         for (group in group_list):
-            process_group(group)
+            try: 
+                result = next (group for group in allgroups if group['name'] == group)
+            except StopIteration as error: 
+                self.client.create_group(group,group,"LOCAL")
+                print("Created group %s" %group)
+            else: 
+                print("Error creating group %s" %group)
             
     def process_user(username,password,display_name,groups):
         #grab user list here instead of before to ensure that we don't process duplicates in the file
@@ -70,14 +79,9 @@ class MyRunnable(Runnable):
         try:
             result = next(item for item in allusers if item['login'] == username)
         except StopIteration as error: #user doesn't already exist, create it
-            if len(userdetails)>4:
-                usergroup.append(userdetails[4])
-            new_user = self.client.create_user(username, password, display_name, source_type='LOCAL', groups=[usergroup])
-            nuser = (username + " has been created")
-            feedback.append(nuser)
+            new_user = self.client.create_user(username, password, display_name,'LOCAL', groups)
+            print ("Created user %s" %username)
         else:
-            alreadyused = (username + " is already in use - please use another name")
-            feedback.append(alreadyused)
-            continue 
+            print ("Error creating user %s" %username)
     
         
