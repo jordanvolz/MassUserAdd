@@ -29,7 +29,7 @@ def process_groups(group_list,client,feedback):
     allgroups = client.list_groups()
     for group in group_list:
         try: 
-            result = next (item for item in allgroups if group['name'] == group)
+            result = next (item for item in allgroups if item['name'] == group)
         except StopIteration as error: 
             client.create_group(group,group,"LOCAL")
             r_text="Created group %s" %group
