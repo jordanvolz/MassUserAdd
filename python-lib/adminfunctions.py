@@ -48,11 +48,13 @@ def process_user(username,password,display_name,groups,client,feedback):
         result = next(item for item in allusers if item['login'] == username)
     except StopIteration as error: #user doesn't already exist, create it
         new_user = client.create_user(username, password, display_name,'LOCAL', groups)
-        printdku("Created user %s" %username,feedback)
-        return feedback
+        r_text = "Created user %s" %username
+       
     else:
-        printdku("Error creating user %s" %username.feedback)
-        return feedback
+        r_text="Error creating user %s" %username
+
+    printdku(r_text,feedback)
+    return feedback
 
 def printdku(string,feedback):
     print(string)
