@@ -35,9 +35,9 @@ class MyRunnable(Runnable):
 
         filepath = self.config.get("user_file_location")
         skip_header = self.config.get("skip_header")
-        printdku("Processing file %s" %filepath)
+        admin.printdku("Processing file %s" %filepath)
         
-        result = process_file(filepath,skip_header)
+        result = admin.process_file(filepath,skip_header)
         
         printdku("Finished Macro MassUserAdd_CreateUserAndGroups")
         return "<br>".join(self.feedback)
