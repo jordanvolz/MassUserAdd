@@ -9,21 +9,17 @@ def process_file(filepath,skip_header,client,feedback,progress_callback):
             i+=1
             progress_callback(i)
             printdku(i,feedback)
-            #if (skip_header and i==1): 
-            #    continue
+            if (skip_header and i==1): 
+                continue
             printdku("Processing line %s" %line,feedback)
             userdetails = line.split(',')
             printdku("userdetails %s" %userdetails,feedback)
             try: 
-                printdku("in try block")
                 username = userdetails[0]
-                printdku("username %s" %username)
                 password = userdetails[1]
                 display_name = userdetails[2]
                 groups = userdetails[3].strip().split("|")
-                printdku(username,password,display_name,groups)
                 feedback = process_groups(groups,client,feedback)
-                printdku("group processed")
                 feedback = process_user(username,password,display_name,groups,client,feedback)
                 printdku("Successfully processed user %s" %username,feedback)
             except: 
