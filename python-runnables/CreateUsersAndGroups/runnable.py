@@ -1,5 +1,5 @@
 import dataiku
-from adminfunctions import *
+import adminfunctions as admin
 from dataiku.runnables import Runnable
 
 
