@@ -40,7 +40,6 @@ def process_groups(group_list,client,feedback):
 def process_user(username,password,display_name,groups,client,feedback):
     #grab user list here instead of before to ensure that we don't process duplicates in the file
     allusers = client.list_users()
-    feedback = []
     try:
         result = next(item for item in allusers if item['login'] == username)
     except StopIteration as error: #user doesn't already exist, create it
