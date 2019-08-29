@@ -30,7 +30,8 @@
             "name": "skip_header",
             "type": "BOOLEAN",
             "description": "Skip first line of file",
-            "mandatory": true
+            "mandatory": true,
+            "defaultValue": false
         }
     ]
 }
