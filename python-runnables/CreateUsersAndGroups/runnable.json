@@ -14,6 +14,7 @@
     "macroRoles": [
      {
             "type": "PROJECT_MACROS",
+             "targetParamKeys":[]
         }
     ],
     "params": [
