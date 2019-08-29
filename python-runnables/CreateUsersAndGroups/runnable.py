@@ -31,7 +31,7 @@ class MyRunnable(Runnable):
         The progress_callback is a function expecting 1 value: current progress
         """
         
-        admin.printdku("Starting Macro MassUserAdd_CreateUserAndGroups")
+        admin.printdku("Starting Macro MassUserAdd_CreateUserAndGroups",self.feedback)
 
         filepath = self.config.get("user_file_location")
         skip_header = self.config.get("skip_header")
